@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components/native';
+import { Image } from 'expo-image';
 
 export const Container = styled.View`
   width: 100%;
@@ -25,6 +26,18 @@ export const Message = styled.Text`
 `;
 
 export const Name = styled.Text`
+  ${({ theme }) => css`
+    color: ${theme.COLORS.GRAY_100};
+    font-size: ${theme.FONT_SIZE.LG}px;
+    font-family: ${theme.FONT_FAMILY.BOLD};
+  `};
+`;
+
+export const Picture = styled(Image)`
+  width: 54px;
+  height: 54px;
+  border-radius: 7px;
+
   ${({ theme }) => css`
     color: ${theme.COLORS.GRAY_100};
     font-size: ${theme.FONT_SIZE.LG}px;

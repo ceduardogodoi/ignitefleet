@@ -3,15 +3,20 @@ import { Power } from 'phosphor-react-native';
 
 import theme from '../../theme';
 
-import { Container, Greeting, Message, Name } from './styles';
+import { Container, Greeting, Message, Name, Picture } from './styles';
 
 export function HomeHeader() {
   return (
     <Container>
+      <Picture
+        source={{ uri: 'https://github.com/ceduardogodoi.png' }}
+        placeholder="L184i9ofbHof00ayjsay~qj[ayj@"
+      />
+
       <Greeting>
         <Message>Olá</Message>
 
-        <Name>Rodrigo</Name>
+        <Name>Carlos</Name>
       </Greeting>
 
       <TouchableOpacity>
