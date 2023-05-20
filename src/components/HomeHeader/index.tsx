@@ -11,7 +11,7 @@ export function HomeHeader() {
   const app = useApp();
 
   async function handleLogout() {
-    app.currentUser?.logOut()
+    await app.currentUser?.logOut()
   }
 
   return (
