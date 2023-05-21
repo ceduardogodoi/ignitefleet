@@ -39,7 +39,7 @@ export function SignIn() {
         const credentials = Realm.Credentials.jwt(response.authentication.idToken);
 
         app.logIn(credentials).catch(error => {
-          console.log(error);
+          console.log('realm error:', error);
 
           setIsAuthenticating(false);
           Alert.alert('Entrar', 'Não foi possível conectar a sua conta Google.');
@@ -49,7 +49,10 @@ export function SignIn() {
           `https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=${response.authentication.idToken}`
         )
           .then(response => response.json())
-          .then(data => console.log(JSON.stringify(data, null, 2)));
+          .then(data => console.log(JSON.stringify(data, null, 2)))
+          .catch(error => {
+            console.log('fetch error:', error);
+          });
       } else {
         setIsAuthenticating(false);
         Alert.alert('Entrar', 'Não foi possível conectar a sua conta Google.');
