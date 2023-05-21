@@ -4,9 +4,8 @@ import { useFonts, Roboto_400Regular, Roboto_700Bold } from '@expo-google-fonts/
 import { AppProvider, UserProvider } from '@realm/react';
 import { REALM_APP_ID } from '@env';
 
+import { Routes } from './src/routes';
 import { SignIn } from './src/screens/SignIn';
-import { Home } from './src/screens/Home';
-
 import { Loading } from './src/components/Loading';
 
 import theme from './src/theme';
@@ -35,7 +34,7 @@ export default function App() {
     <AppProvider id={REALM_APP_ID}>
       <ThemeProvider theme={theme}>
         <UserProvider fallback={SignIn}>
-          <Home />
+          <Routes />
         </UserProvider>
       </ThemeProvider>
     </AppProvider>
