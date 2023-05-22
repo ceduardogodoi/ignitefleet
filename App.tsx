@@ -5,6 +5,8 @@ import { AppProvider, UserProvider } from '@realm/react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { REALM_APP_ID } from '@env';
 
+import { RealmProvider } from './src/libs/realm';
+
 import { Routes } from './src/routes';
 import { SignIn } from './src/screens/SignIn';
 import { Loading } from './src/components/Loading';
@@ -36,7 +38,9 @@ export default function App() {
       <ThemeProvider theme={theme}>
         <SafeAreaProvider>
           <UserProvider fallback={SignIn}>
-            <Routes />
+            <RealmProvider>
+              <Routes />
+            </RealmProvider>
           </UserProvider>
         </SafeAreaProvider>
       </ThemeProvider>
