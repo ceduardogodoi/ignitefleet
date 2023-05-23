@@ -1,12 +1,16 @@
-import { useNavigation } from '@react-navigation/native';
 import { HomeHeader } from '../../components/HomeHeader';
+import { CarStatus } from '../../components/CarStatus';
 
-import { Container } from './styles';
+import { Container, Content } from './styles';
 
 export function Home() {
   return (
     <Container>
       <HomeHeader />
+
+      <Content>
+        <CarStatus />
+      </Content>
     </Container>
   );
 }
