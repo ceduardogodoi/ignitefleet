@@ -23,7 +23,19 @@ export function Departure() {
     if (!licensePlateValidate(licensePlate)) {
       licensePlateRef.current?.focus();
 
-      return Alert.alert('Place inválida', 'A placa é inválida. Por favor, informe a placa correta do veículo.');
+      return Alert.alert(
+        'Place inválida',
+        'A placa é inválida. Por favor, informe a placa correta do veículo.'
+      );
+    }
+
+    if (description.trim().length === 0) {
+      descriptionRef.current?.focus();
+
+      return Alert.alert(
+        'Finalidade',
+        'Por favor, informe a finalidade da utilização do veículo.'
+      );
     }
   }
 
