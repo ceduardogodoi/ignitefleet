@@ -1,4 +1,5 @@
 import { useRoute } from '@react-navigation/native';
+import { X } from 'phosphor-react-native';
 
 import { Header } from '../../components/Header';
 import { Button } from '../../components/Button';
@@ -11,6 +12,7 @@ import {
   Label,
   LicensePlate,
 } from './styles';
+import { ButtonIcon } from '../../components/ButtonIcon';
 
 type RouteParamsProps = {
   id: string;
@@ -41,6 +43,10 @@ export function Arrival() {
         </Description>
 
         <Footer>
+          <ButtonIcon
+            icon={X}
+          />
+
           <Button
             title="Registrar chegada"
           />
