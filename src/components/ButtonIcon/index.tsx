@@ -12,8 +12,9 @@ type Props = TouchableOpacityProps & {
 
 export function ButtonIcon({ icon: Icon, ...rest }: Props) {
   const { COLORS } = useTheme();
+
   return (
-    <Container activeOpacity={0.7}>
+    <Container activeOpacity={0.7} {...rest}>
       <Icon color={COLORS.BRAND_MID} />
     </Container>
   );
