@@ -9,6 +9,7 @@ import { Historic } from '../../libs/realm/schemas/Historic';
 
 import { Container, Content } from './styles';
 import { Alert } from 'react-native';
+import { HistoricCard } from '../../components/HistoricCard';
 
 export function Home() {
   const [vehicleInUse, setVehicleInUse] = useState<Historic | null>(null);
@@ -66,6 +67,12 @@ export function Home() {
           licensePlate={vehicleInUse?.license_plate}
           onPress={handleRegisterMovement}
         />
+
+        <HistoricCard data={{
+          created: '20/04',
+          licensePlate: 'XXX1212',
+          isSync: false,
+        }} />
       </Content>
     </Container>
   );
