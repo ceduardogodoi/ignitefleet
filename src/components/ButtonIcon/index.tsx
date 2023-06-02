@@ -15,7 +15,7 @@ export function ButtonIcon({ icon: Icon, ...rest }: Props) {
 
   return (
     <Container activeOpacity={0.7} {...rest}>
-      <Icon color={COLORS.BRAND_MID} />
+      <Icon size={24} color={COLORS.BRAND_MID} />
     </Container>
   );
 }

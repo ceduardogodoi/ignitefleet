@@ -70,7 +70,11 @@ export function Home() {
       fetchVehicleInUse();
     });
 
-    return realm.removeListener('change', fetchVehicleInUse);
+    return () => {
+      if (realm && !realm.isClosed) {
+        realm.removeListener('change', fetchVehicleInUse);
+      }
+    };
   }, []);
 
   useEffect(() => {
