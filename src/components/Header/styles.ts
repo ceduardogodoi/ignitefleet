@@ -5,7 +5,6 @@ export const Container = styled.View`
   padding: 0 32px 24px;
   flex-direction: row;
   justify-content: space-between;
-  z-index: 1;
 
   ${({ theme }) => css`
     background-color: ${theme.COLORS.GRAY_700};
