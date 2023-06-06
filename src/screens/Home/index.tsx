@@ -63,6 +63,11 @@ export function Home() {
     navigate('arrival', { id });
   }
 
+  function progressNotification(transferred: number, transferable: number) {
+    const percentage = (transferred / transferable) * 100;
+    console.log('percentage::', `${percentage}%`);
+  }
+
   useEffect(() => {
     fetchVehicleInUse();
   }, []);
@@ -90,6 +95,23 @@ export function Home() {
       mutableSubs.add(historicByUserQuery, { name: 'HistoricByUser' });
     });
   }, [realm]);
+
+  useEffect(() => {
+    const syncSession = realm.syncSession;
+    if (!syncSession) return;
+
+    syncSession.addProgressNotification(
+      Realm.ProgressDirection.Upload,
+      Realm.ProgressMode.ReportIndefinitely,
+      progressNotification,
+    )
+
+    return () => {
+      syncSession.removeProgressNotification(
+        progressNotification
+      );
+    };
+  }, []);
 
   return (
     <Container>
