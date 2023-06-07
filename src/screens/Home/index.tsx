@@ -2,6 +2,7 @@ import { Alert, FlatList } from 'react-native';
 import { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useUser } from '@realm/react';
+import Toast from 'react-native-toast-message';
 import dayjs from 'dayjs';
 
 import { HomeHeader } from '../../components/HomeHeader';
@@ -10,7 +11,7 @@ import { HistoricCard, HistoricCardProps } from '../../components/HistoricCard';
 
 import { useQuery, useRealm } from '../../libs/realm';
 import { Historic } from '../../libs/realm/schemas/Historic';
-import { getLastSyncTimestamp, saveLastSyncTimestamp } from '../../libs/asyncStorage/asyncStorage';
+import { getLastSyncTimestamp, saveLastSyncTimestamp } from '../../libs/asyncStorage/syncStorage';
 
 import { Container, Content, Label, Title } from './styles';
 
@@ -72,6 +73,11 @@ export function Home() {
     if (percentage === 100) {
       await saveLastSyncTimestamp();
       await fetchHistoric();
+
+      Toast.show({
+        type: 'info',
+        text1: 'Todos os dados estão sincronizados.',
+      });
     }
   }
 
