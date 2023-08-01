@@ -3,7 +3,7 @@ import { Alert, ScrollView, TextInput } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useUser } from '@realm/react';
-import { useForegroundPermissions } from 'expo-location';
+import { LocationAccuracy, LocationSubscription, useForegroundPermissions, watchPositionAsync } from 'expo-location';
 
 import { Button } from '../../components/Button';
 import { Header } from '../../components/Header';
@@ -82,6 +82,25 @@ export function Departure() {
   useEffect(() => {
     requestLocationForegroundPermission();
   }, []);
+
+  useEffect(() => {
+    if (!locationForegroundPermission?.granted) return;
+
+    let subscription: LocationSubscription;
+
+    watchPositionAsync({
+      accuracy: LocationAccuracy.High,
+      timeInterval: 1000,
+    }, location => {
+      console.log(location);
+    }).then(response => {
+      subscription = response
+    });
+
+    return () => {
+      subscription.remove();
+    };
+  }, [locationForegroundPermission]);
 
   if (!locationForegroundPermission?.granted) {
     return (
