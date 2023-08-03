@@ -13,6 +13,7 @@ import { TextAreaInput } from '../../components/TextAreaInput';
 import { useRealm } from '../../libs/realm';
 import { Historic } from '../../libs/realm/schemas/Historic';
 import { licensePlateValidate } from '../../utils/licensePlateValidate';
+import { getAddressLocation } from '../../utils/getAddressLocation';
 
 import { Container, Content, Message } from './styles';
 
@@ -92,7 +93,10 @@ export function Departure() {
       accuracy: LocationAccuracy.High,
       timeInterval: 1000,
     }, location => {
-      console.log(location);
+      getAddressLocation(location.coords)
+      .then(address => {
+        console.log(address);
+      })
     }).then(response => {
       subscription = response
     });
