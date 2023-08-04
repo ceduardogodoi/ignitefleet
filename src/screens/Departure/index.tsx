@@ -3,7 +3,13 @@ import { Alert, ScrollView, TextInput } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useUser } from '@realm/react';
-import { LocationAccuracy, LocationSubscription, useForegroundPermissions, watchPositionAsync } from 'expo-location';
+import {
+  LocationAccuracy,
+  LocationSubscription,
+  useForegroundPermissions,
+  watchPositionAsync
+} from 'expo-location';
+import { Car } from 'phosphor-react-native';
 
 import { Button } from '../../components/Button';
 import { Header } from '../../components/Header';
@@ -143,6 +149,7 @@ export function Departure() {
               <LocationInfo
                 label="Localização atual"
                 description={currentAddress}
+                icon={Car}
               />
             )}
 
