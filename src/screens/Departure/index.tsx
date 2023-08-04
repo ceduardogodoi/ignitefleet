@@ -10,6 +10,7 @@ import { Header } from '../../components/Header';
 import { LicensePlateInput } from '../../components/LicensePlateInput';
 import { TextAreaInput } from '../../components/TextAreaInput';
 import { Loading } from '../../components/Loading';
+import { LocationInfo } from '../../components/LocationInfo';
 
 import { useRealm } from '../../libs/realm';
 import { Historic } from '../../libs/realm/schemas/Historic';
@@ -23,6 +24,7 @@ export function Departure() {
   const [licensePlate, setLicensePlate] = useState('');
   const [isRegistering, setIsRegistering] = useState(false);
   const [isLoadingLocation, setIsLoadingLocation] = useState(true);
+  const [currentAddress, setCurrentAddress] = useState<string | null>(null);
 
   const descriptionRef = useRef<TextInput>(null);
   const licensePlateRef = useRef<TextInput>(null);
@@ -97,7 +99,9 @@ export function Departure() {
     }, location => {
       getAddressLocation(location.coords)
         .then(address => {
-          console.log(address);
+          if (address) {
+            setCurrentAddress(address);
+          }
         })
         .finally(() => setIsLoadingLocation(false));
     }).then(response => {
@@ -135,6 +139,13 @@ export function Departure() {
       <KeyboardAwareScrollView extraHeight={150}>
         <ScrollView>
           <Content>
+            {currentAddress && (
+              <LocationInfo
+                label="Localização atual"
+                description={currentAddress}
+              />
+            )}
+
             <LicensePlateInput
               ref={licensePlateRef}
               label="Placa do veículo"
