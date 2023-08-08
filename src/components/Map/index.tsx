@@ -60,7 +60,7 @@ export function Map({ coordinates, ...rest }: Props) {
           </Marker>
 
           <Polyline
-            coordinates={coordinates}
+            coordinates={[...coordinates]}
             strokeColor={COLORS.GRAY_700}
             strokeWidth={7}
           />
