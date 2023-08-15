@@ -7,6 +7,7 @@ import { BSON } from 'realm';
 import { useObject, useRealm } from '../../libs/realm';
 import { Historic } from '../../libs/realm/schemas/Historic';
 import { getLastSyncTimestamp } from '../../libs/asyncStorage/syncStorage';
+import { getStorageLocations } from '../../libs/asyncStorage/locationStorage';
 
 import { stopLocationTask } from '../../tasks/backgroundLocationTask';
 
@@ -96,12 +97,17 @@ export function Arrival() {
     }
   }
 
+  async function getLocationInfo() {
+    const lastSync = await getLastSyncTimestamp();
+    const updatedAt = historic!.updated_at.getTime();
+    setDataNotSynced(updatedAt > lastSync);
+
+    const locationStorage = await getStorageLocations();
+  }
+
   useEffect(() => {
-    getLastSyncTimestamp()
-      .then(lastSync => {
-        return setDataNotSynced(historic!.updated_at.getTime() > lastSync);
-      });
-  }, []);
+    getLocationInfo();
+  }, [historic]);
 
   return (
     <Container>
