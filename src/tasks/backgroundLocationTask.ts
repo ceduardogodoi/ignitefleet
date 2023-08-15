@@ -23,7 +23,6 @@ TaskManager.defineTask(BACKGROUND_TASK_NAME, async ({ data, error }: any) => {
         timestamp: timestamp,
       };
 
-      console.log(currentLocation);
       await saveStorageLocation(currentLocation);
     }
   }
