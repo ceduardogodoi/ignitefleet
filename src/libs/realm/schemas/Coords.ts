@@ -17,7 +17,15 @@ export class Coords extends Realm.Object<Coords> {
       longitude,
       timestamp
     };
+  }
 
-    // AULA PAROU EM 03:17
+  static schema = {
+    name: 'Coords',
+    embedded: true,
+    properties: {
+      latitude: 'float',
+      longitude: 'float',
+      timestamp: 'float',
+    },
   }
 }
