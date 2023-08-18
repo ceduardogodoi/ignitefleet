@@ -106,19 +106,23 @@ export function Arrival() {
     }
   }
 
-  async function getLocationInfo() {
+  async function getLocationsInfo() {
     if (!historic) return;
 
     const lastSync = await getLastSyncTimestamp();
-    const updatedAt = historic!.updated_at.getTime();
+    const updatedAt = historic.updated_at.getTime();
     setDataNotSynced(updatedAt > lastSync);
 
-    const locationsStorage = await getStorageLocations();
-    setCoordinates(locationsStorage);
+    if (historic.status === 'departure') {
+      const locationsStorage = await getStorageLocations();
+      setCoordinates(locationsStorage);
+    } else {
+      setCoordinates(historic.coords ?? []);
+    }
   }
 
   useEffect(() => {
-    getLocationInfo();
+    getLocationsInfo();
   }, [historic]);
 
   return (
