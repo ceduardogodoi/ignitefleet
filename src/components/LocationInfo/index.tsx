@@ -1,7 +1,7 @@
 import { IconBox, IconBoxProps } from '../IconBox';
 import { Container, Info, Label, Description } from './styles';
 
-type LocationInfoProps = {
+export type LocationInfoProps = {
   label: string;
   description: string;
 }
