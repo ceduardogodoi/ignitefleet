@@ -21,6 +21,7 @@ import { ButtonIcon } from '../../components/ButtonIcon';
 import { Map } from '../../components/Map';
 import { Locations } from '../../components/Locations';
 import { LocationInfoProps } from '../../components/LocationInfo';
+import { Loading } from '../../components/Loading';
 
 import {
   AsyncMessage,
@@ -41,6 +42,7 @@ export function Arrival() {
   const [coordinates, setCoordinates] = useState<LatLng[]>([]);
   const [departure, setDeparture] = useState<LocationInfoProps>({} as LocationInfoProps);
   const [arrival, setArrival] = useState<LocationInfoProps | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   const route = useRoute();
   const { id } = route.params as RouteParamsProps;
@@ -145,11 +147,19 @@ export function Arrival() {
         description: dayjs(new Date(historic.coords[0].timestamp)).format('DD/MM/YYYY [às] HH:mm'),
       });
     }
+
+    setIsLoading(false);
   }
 
   useEffect(() => {
     getLocationsInfo();
   }, [historic]);
+
+  if (isLoading) {
+    return (
+      <Loading />
+    );
+  }
 
   return (
     <Container>
