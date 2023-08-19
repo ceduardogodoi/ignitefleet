@@ -4,6 +4,7 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import { LatLng } from 'react-native-maps';
 import { X } from 'phosphor-react-native';
 import { BSON } from 'realm';
+import dayjs from 'dayjs';
 
 import { useObject, useRealm } from '../../libs/realm';
 import { Historic } from '../../libs/realm/schemas/Historic';
@@ -12,11 +13,14 @@ import { getStorageLocations } from '../../libs/asyncStorage/locationStorage';
 
 import { stopLocationTask } from '../../tasks/backgroundLocationTask';
 
+import { getAddressLocation } from '../../utils/getAddressLocation';
+
 import { Header } from '../../components/Header';
 import { Button } from '../../components/Button';
 import { ButtonIcon } from '../../components/ButtonIcon';
 import { Map } from '../../components/Map';
 import { Locations } from '../../components/Locations';
+import { LocationInfoProps } from '../../components/LocationInfo';
 
 import {
   AsyncMessage,
@@ -35,6 +39,8 @@ type RouteParamsProps = {
 export function Arrival() {
   const [dataNotSynced, setDataNotSynced] = useState(false);
   const [coordinates, setCoordinates] = useState<LatLng[]>([]);
+  const [departure, setDeparture] = useState<LocationInfoProps>({} as LocationInfoProps);
+  const [arrival, setArrival] = useState<LocationInfoProps | null>(null);
 
   const route = useRoute();
   const { id } = route.params as RouteParamsProps;
@@ -120,6 +126,25 @@ export function Arrival() {
     } else {
       setCoordinates(historic.coords ?? []);
     }
+
+    if (historic.coords) {
+      const departureStreetName = await getAddressLocation(historic.coords[0]);
+
+      setDeparture({
+        label: `Saindo em ${departureStreetName ?? ''}`,
+        description: dayjs(new Date(historic.coords[0].timestamp)).format('DD/MM/YYYY [às] HH:mm'),
+      });
+    }
+
+    if (historic.status === 'arrival') {
+      const lastLocation = historic.coords[historic.coords.length - 1];
+      const arrivalStreetName = await getAddressLocation(lastLocation);
+
+      setArrival({
+        label: `Chegando em ${arrivalStreetName ?? ''}`,
+        description: dayjs(new Date(historic.coords[0].timestamp)).format('DD/MM/YYYY [às] HH:mm'),
+      });
+    }
   }
 
   useEffect(() => {
@@ -136,8 +161,8 @@ export function Arrival() {
 
       <Content>
         <Locations
-          departure={{ label: 'Saída', description: 'Saída teste' }}
-          arrival={{ label: 'Chegada', description: 'Chegada teste' }}
+          departure={departure}
+          arrival={arrival}
         />
 
         <Label>
