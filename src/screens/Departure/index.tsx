@@ -87,7 +87,13 @@ export function Departure() {
 
         return Alert.alert(
           'Localização',
-          'É necessário permitir que o app tenha acesso a localização em segundo plano. Acesse as configurações do dispositivo e habilite "Permitir o tempo todo"'
+          'É necessário permitir que o app tenha acesso a localização em segundo plano. Acesse as configurações do dispositivo e habilite "Permitir o tempo todo"',
+          [
+            {
+              text: 'Abrir Configurações',
+              onPress: openSettings
+            },
+          ],
         );
       }
 
