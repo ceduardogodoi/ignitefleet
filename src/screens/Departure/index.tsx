@@ -27,8 +27,9 @@ import { useRealm } from '../../libs/realm';
 import { Historic } from '../../libs/realm/schemas/Historic';
 import { licensePlateValidate } from '../../utils/licensePlateValidate';
 import { getAddressLocation } from '../../utils/getAddressLocation';
+import { openSettings } from '../../utils/openSettings';
 
-import { Container, Content, Message } from './styles';
+import { Container, Content, Message, MessageContent } from './styles';
 
 export function Departure() {
   const [description, setDescription] = useState('');
@@ -158,10 +159,17 @@ export function Departure() {
       <Container>
         <Header title="Saída" />
 
-        <Message>
-          Você precisa permitir que o aplicativo tenha acesso a localização para utilizar essa funcionalidade.
-          Por favor, acesse as configurações do seu dispositivo para conceder essa permissão ao aplicativo.
-        </Message>
+        <MessageContent>
+          <Message>
+            Você precisa permitir que o aplicativo tenha acesso a localização para utilizar essa funcionalidade.
+            Por favor, acesse as configurações do seu dispositivo para conceder essa permissão ao aplicativo.
+          </Message>
+
+          <Button
+            title="Abrir Configurações"
+            onPress={openSettings}
+          />
+        </MessageContent>
       </Container>
     )
   }
